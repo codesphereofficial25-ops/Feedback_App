@@ -1,3 +1,5 @@
+// No need Just for explanation
+
 // const http = require('http');
 
 // const port = 3000;
@@ -18,20 +20,23 @@
 // });
 
 import express from 'express';
+import cors from 'cors';
 
-const PORT = process.env.PORT || 3000;
+const app = express();
+const PORT = 3000;
 
-const app = express()
-
-app.get('/', (req, res) => {
-  console.log(req);
-  console.log(res);
-  res.send('Hello World');
-})
-
+app.use(cors());
 app.use(express.json());
 
 let feedbacks = [];
+
+// No need just for explanation
+
+// app.get('/', (req, res) => {
+//   console.log(req);
+//   console.log(res);
+//   res.send('Hello World');
+// })
 
 app.get('/feedback', (req, res) => {
   res.json(feedbacks);
@@ -45,11 +50,11 @@ app.post('/feedback', (req, res) => {
 
   const newFeedback = {
     id: Date.now(),
-    name: name,
-    feedback: feedback,
+    name,
+    feedback
   }
 
-  feedback.push(newFeedback);
+  feedbacks.push(newFeedback);
   res.status(201).json(newFeedback);
 
 });
